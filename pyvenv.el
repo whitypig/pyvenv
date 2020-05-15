@@ -235,11 +235,14 @@ This is usually the base name of `pyvenv-virtual-env'.")
   (run-hooks 'pyvenv-pre-activate-hooks)
   (let ((new-directories (append
                           ;; Unix
-                          (when (file-exists-p (format "%s/bin" directory))
-                            (list (format "%s/bin" directory)))
+                          (when (file-exists-p (format
+                                                "%sbin"
+                                                (file-name-as-directory directory)))
+                            (list (format "%sbin" (file-name-as-directory directory))))
                           ;; Windows
-                          (when (file-exists-p (format "%s/Scripts" directory))
-                            (list (format "%s/Scripts" directory)
+                          (when (file-exists-p (format "%sScripts"
+                                                       (file-name-as-directory directory)))
+                            (list (format "%sScripts" (file-name-as-directory directory))
                                   ;; Apparently, some virtualenv
                                   ;; versions on windows put the
                                   ;; python.exe in the virtualenv root
